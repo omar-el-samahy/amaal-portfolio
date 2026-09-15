@@ -1,0 +1,33 @@
+{
+  "name": "Amaal Abdou",
+  "role": "Senior Graphic Designer",
+  "heroKicker": "Graphic Designer — Egypt",
+  "heroLines": ["Visual stories", "that speak", "louder*"],
+  "heroAccentLine": 2,
+  "heroLead": "I'm Amaal — a senior graphic designer turning ideas into brand identities, logos, and social campaigns people actually stop to look at.",
+  "heroNote": "* four years across five agencies, 180+ appreciations on Behance",
+  "marquee": ["Branding", "Logo design", "Social media", "Motion graphics", "Print design", "Art direction"],
+  "workTitle": "Selected work",
+  "workIntro": "Taken from my Behance — social campaigns, branding, and logo systems built for real clients.",
+  "workMoreText": "See everything on Behance",
+  "aboutTitle": "About me",
+  "aboutIntro": "A designer, a storyteller, and a pixel perfectionist.",
+  "aboutParagraphs": [
+    "I'm not just a graphic designer — I'm your visual storyteller on a mission to turn ideas into eye-catching realities. With a palette of creativity and a love for pixels, I craft designs that speak louder than words, bringing brands to life, weaving magic into print, and building social campaigns that connect."
+  ],
+  "experience": [
+    { "role": "Sr. Graphic Designer", "org": "TAR Marketing Agency — Jan 2025 · now" },
+    { "role": "Graphic Designer", "org": "TAR Marketing Agency — 2023 · 2024" },
+    { "role": "Graphic Designer", "org": "Growth Mind / Sedrah / Webber" },
+    { "role": "Freelance Graphic Designer", "org": "Fiverr.com" }
+  ],
+  "tools": ["Photoshop", "Illustrator", "InDesign", "Premiere", "After Effects", "Figma", "Canva"],
+  "contactTitle1": "Let's work",
+  "contactTitle2": "together.",
+  "contactSub": "Freelance, full-time, or a one-off campaign — I'm one message away.",
+  "email": "abdouamaal85@gmail.com",
+  "phone": "+2 010 17 95 24 65",
+  "behanceUrl": "https://www.behance.net/amaalabdou",
+  "linkedinUrl": "https://www.linkedin.com/in/amaal-abdou",
+  "footerCredit": "Designed & built by Amaal"
+}

@@ -1,0 +1,90 @@
+# Decap CMS configuration
+# Edit everything from: yoursite.netlify.app/admin
+# Changes are saved to GitHub and deploy automatically.
+
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: assets/img
+public_folder: assets/img
+
+site_url: /
+logo_url: /
+
+collections:
+  - name: site
+    label: Site Content
+    description: Your name, hero text, about section, and contact details.
+    label_singular: Site content
+    files:
+      - name: site-fields
+        label: Site content
+        file: content/site.json
+        fields:
+          - { label: Your name, name: name, widget: string }
+          - { label: Job title, name: role, widget: string }
+          - { label: Hero kicker (small top line), name: heroKicker, widget: string }
+          - label: "Hero headline (one line per row)"
+            name: heroLines
+            widget: list
+            collapsed: false
+          - { label: "Hero accent line (0 = none)", name: heroAccentLine, widget: number, default: 2 }
+          - { label: Hero lead paragraph, name: heroLead, widget: text }
+          - { label: Small note under hero, name: heroNote, widget: string }
+          - label: Scrolling marquee words
+            name: marquee
+            widget: list
+            collapsed: false
+          - { label: Work section heading, name: workTitle, widget: string }
+          - { label: Work section intro, name: workIntro, widget: text }
+          - { label: "More link text ", name: workMoreText, widget: string }
+          - { label: About heading, name: aboutTitle, widget: string }
+          - { label: About intro, name: aboutIntro, widget: string }
+          - label: About paragraphs
+            name: aboutParagraphs
+            widget: list
+            collapsed: false
+          - label: Experience / work history
+            name: experience
+            widget: list
+            collapsed: true
+            summary: "{{fields.role}} — {{fields.org}}"
+            fields:
+              - { label: Role, name: role, widget: string }
+              - { label: Company / dates, name: org, widget: string }
+          - label: Tools & skills
+            name: tools
+            widget: list
+            collapsed: false
+          - { label: Contact heading, line 1, name: contactTitle1, widget: string }
+          - { label: Contact heading, line 2, name: contactTitle2, widget: string }
+          - { label: Contact subtitle, name: contactSub, widget: text }
+          - { label: Email, name: email, widget: string }
+          - { label: Phone, name: phone, widget: string }
+          - { label: Behance URL, name: behanceUrl, widget: string }
+          - { label: LinkedIn URL, name: linkedinUrl, widget: string }
+          - { label: Footer credit text, name: footerCredit, widget: string }
+
+  - name: projects
+    label: Projects
+    label_singular: Project
+    description: Projects shown on the portfolio homepage.
+    files:
+      - name: projects-list
+        label: Portfolio Projects
+        file: content/projects.json
+        fields:
+          - label: Projects
+            name: projects
+            widget: list
+            summary: "{{fields.title}}"
+            collapsed: false
+            fields:
+              - { label: Title, name: title, widget: string }
+              - { label: Category (tag shown on the image), name: category, widget: string }
+              - { label: Cover image, name: image, widget: image, choose_url: false }
+              - { label: Behance / project link, name: link, widget: string }
+              - { label: Short description, name: description, widget: text }
+              - { label: Tools, name: tools, widget: list }
+              - { label: Featured, name: featured, widget: boolean, default: true }
