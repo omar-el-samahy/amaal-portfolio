@@ -1,9 +1,10 @@
-# Decap CMS configuration
-# Edit everything from: yoursite.netlify.app/admin
-# Changes are saved to GitHub and deploy automatically.
+# Decap CMS configuration — GitHub Token Auth (works on GitHub Pages, no Netlify)
+# Edit: yoursite.github.io/repo/admin  → pick "Token Auth" → paste your token → save.
+# Changes commit to GitHub and GitHub Pages redeploys automatically.
 
 backend:
-  name: git-gateway
+  name: github
+  repo: omar-el-samahy/amaal-portfolio
   branch: main
 
 media_folder: assets/img

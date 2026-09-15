@@ -6,8 +6,21 @@
   <meta name="robots" content="noindex">
   <title>Manage Projects — Amaal Abdou</title>
   <link rel="stylesheet" href="https://unpkg.com/decap-cms@^3.0.0/dist/cms.css">
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 </head>
 <body>
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+  <script>
+    // Finish the Netlify Identity OAuth flow & gate the editor behind login
+    if (window.netlifyIdentity) {
+      window.netlifyIdentity.on("init", function (user) {
+        if (!user) {
+          window.netlifyIdentity.on("login", function () {
+            document.location.href = "/admin/";
+          });
+        }
+      });
+    }
+  </script>
 </body>
 </html>
