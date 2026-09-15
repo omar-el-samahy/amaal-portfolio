@@ -3,54 +3,73 @@
     "title": "Logo designs — marketing companies",
     "category": "Branding",
     "image": "assets/img/03.png",
-    "link": "https://www.behance.net/gallery/237258383/",
+    "link": "https://www.behance.net/amaalabdou",
     "description": "Custom logo systems and brand marks built to position marketing agencies as credible, memorable partners.",
-    "tools": ["Illustrator", "Brand identity"],
+    "tools": [
+      "Illustrator",
+      "Brand identity"
+    ],
     "featured": true
   },
   {
     "title": "Social media design",
     "category": "Campaign",
     "image": "assets/img/06.png",
-    "link": "https://www.behance.net/gallery/190770011/",
+    "link": "https://www.behance.net/amaalabdou",
     "description": "Feed-ready campaign visuals that keep a brand consistent while staying scroll-stopping across platforms.",
-    "tools": ["Photoshop", "Social media"],
+    "tools": [
+      "Photoshop",
+      "Social media"
+    ],
     "featured": true
   },
   {
     "title": "Creative social media designs / ads KSA",
     "category": "Ads · KSA",
     "image": "assets/img/01.png",
-    "link": "https://www.behance.net/gallery/239103813/",
+    "link": "https://www.behance.net/amaalabdou",
     "description": "Arabic-first ad creative for the Saudi market — bold hooks, tight copy-and-visual pairings.",
-    "tools": ["Photoshop", "Illustrator", "Advertising"],
+    "tools": [
+      "Photoshop",
+      "Illustrator",
+      "Advertising"
+    ],
     "featured": true
   },
   {
     "title": "Social media designs / ads KSA",
     "category": "Ads · KSA",
     "image": "assets/img/02.jpg",
-    "link": "https://www.behance.net/gallery/237440419/",
+    "link": "https://www.behance.net/amaalabdou",
     "description": "Product and service ads engineered for the feed — clear hierarchy, on-brand color, and fast readability.",
-    "tools": ["Photoshop", "Campaign"],
+    "tools": [
+      "Photoshop",
+      "Campaign"
+    ],
     "featured": true
   },
   {
     "title": "95th Saudi National Day",
     "category": "Holiday",
     "image": "assets/img/08.jpg",
-    "link": "https://www.behance.net/gallery/234817445/",
+    "link": "https://www.behance.net/amaalabdou",
     "description": "Celebratory social set marking the national day with a festive, proud, and polished visual language.",
-    "tools": ["Photoshop", "Typography"],
+    "tools": [
+      "Photoshop",
+      "Typography"
+    ],
     "featured": true
   },
   {
     "title": "Social Media",
     "category": "Campaign",
     "image": "assets/img/12.jpg",
-    "link": "https://www.behance.net/gallery/226625433/",
+    "link": "https://www.behance.net/amaalabdou",
     "description": "A cohesive set of promotional posts mixing illustration, photo treatment, and strong call-to-action blocks.",
-    "tools": ["Photoshop", "Illustrator"],
+    "tools": [
+      "Photoshop",
+      "Illustrator"
+    ],
     "featured": true
   }
 ]

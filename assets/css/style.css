@@ -275,10 +275,18 @@ a { color: inherit; text-decoration: none; }
 }
 
 .card {
+  --d: 0s;
   border: 1px solid var(--line);
   background: var(--white);
   display: flex;
   flex-direction: column;
+  transform: translateY(0);
+  transition: transform .5s var(--ease), box-shadow .5s var(--ease), border-color .5s var(--ease);
+}
+.card:hover, .card:focus-within {
+  transform: translateY(-7px);
+  border-color: var(--accent);
+  box-shadow: 0 24px 52px -20px rgba(22, 19, 13, .32);
 }
 
 .thumb {
