@@ -455,11 +455,15 @@
                 const key = ['emailMe', 'linkedin', 'behance', 'whatsapp'][index];
                 span.innerText = translations[currentLang][key];
             });
-
+            
             // Update Footer
-            document.getElementById('footer-text').innerHTML = translations[currentLang].footer;
+            const footerText = document.getElementById('footer-text');
+            if (footerText) {
+                footerText.innerHTML = translations[currentLang].footer || footerText.innerHTML;
+            }
             document.getElementById('year').innerText = new Date().getFullYear();
         });
+
 
 
         // Reveal animations
