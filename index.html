@@ -251,7 +251,6 @@
             currentLang = currentLang === 'en' ? 'ar' : 'en';
             document.documentElement.lang = currentLang;
             document.documentElement.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
-            langIcon.innerText = currentLang === 'en' ? 'AR' : 'EN';
             
             // Update content
             document.querySelector('nav a:nth-child(1)').innerText = translations[currentLang].navHome;
@@ -267,6 +266,7 @@
             document.querySelector('#work h2').innerText = translations[currentLang].workTitle;
             document.querySelector('#about span').innerText = translations[currentLang].aboutTag;
             document.querySelector('#about h2').innerText = translations[currentLang].aboutTitle;
+            document.querySelector('#about p').innerText = translations[currentLang].aboutText;
             document.querySelector('#contact h2').innerText = translations[currentLang].contactTitle;
             
             // Update Contact Buttons
@@ -276,6 +276,7 @@
             contactLinks[2].innerText = translations[currentLang].behance;
             contactLinks[3].innerText = translations[currentLang].whatsapp;
         });
+
 
         // Reveal animations
         const observerOptions = { threshold: 0.1 };
