@@ -135,6 +135,74 @@
         </div>
     </div>
 
+    <!-- Project Modal -->
+    <div id="project-modal" class="hidden fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
+        <div class="bg-white w-full max-w-2xl rounded-3xl shadow-2xl overflow-hidden max-h-[90vh] flex flex-col">
+            <div class="p-6 border-b border-zinc-100 flex justify-between items-center bg-zinc-50">
+                <h3 id="modal-title" class="text-xl font-bold">Add Project</h3>
+                <button id="close-modal" class="text-zinc-400 hover:text-zinc-600 transition-colors">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+            <div class="p-8 overflow-y-auto space-y-6">
+                <!-- Image Upload Area -->
+                <div class="p-4 bg-zinc-50 rounded-2xl border border-zinc-200 space-y-4">
+                    <label class="block text-sm font-medium">Project Image</label>
+                    <div class="flex gap-4 items-start">
+                        <div class="w-24 h-24 rounded-xl bg-zinc-200 overflow-hidden border border-zinc-300 flex-shrink-0">
+                            <img id="project-preview" src="https://via.placeholder.com/100" class="w-full h-full object-cover">
+                        </div>
+                        <div class="flex-1 space-y-2">
+                            <div class="flex gap-2">
+                                <input type="file" id="project-file" class="text-xs w-full">
+                                <button id="upload-project-img" class="px-3 py-1 bg-zinc-900 text-white text-xs rounded-lg">Upload</button>
+                            </div>
+                            <input type="text" id="project-image-url" placeholder="Or paste image URL" class="w-full p-2 rounded-lg border border-zinc-300 text-xs outline-none">
+                        </div>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- English Side -->
+                    <div class="space-y-4">
+                        <h4 class="text-xs font-bold uppercase tracking-wider text-zinc-400 mb-2">English Details</h4>
+                        <div>
+                            <label class="block text-sm font-medium mb-1">Title</label>
+                            <input type="text" id="p-title-en" class="w-full p-3 rounded-xl border border-zinc-300 outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-1">Description</label>
+                            <textarea id="p-desc-en" class="w-full p-3 rounded-xl border border-zinc-300 h-24 outline-none"></textarea>
+                        </div>
+                    </div>
+                    <!-- Arabic Side -->
+                    <div class="space-y-4 text-right" dir="rtl">
+                        <h4 class="text-xs font-bold uppercase tracking-wider text-zinc-400 mb-2">التفاصيل العربية</h4>
+                        <div>
+                            <label class="block text-sm font-medium mb-1">العنوان</label>
+                            <input type="text" id="p-title-ar" class="w-full p-3 rounded-xl border border-zinc-300 outline-none text-right">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-1">الوصف</label>
+                            <textarea id="p-desc-ar" class="w-full p-3 rounded-xl border border-zinc-300 h-24 outline-none text-right"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium mb-1">Category</label>
+                    <input type="text" id="p-category" placeholder="e.g. Brand Identity" class="w-full p-3 rounded-xl border border-zinc-300 outline-none">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium mb-1">Project Link (External)</label>
+                    <input type="text" id="p-link" placeholder="https://..." class="w-full p-3 rounded-xl border border-zinc-300 outline-none">
+                </div>
+            </div>
+            <div class="p-6 border-t border-zinc-100 bg-zinc-50 flex justify-end gap-3">
+                <button id="close-modal-btn" class="px-6 py-2 text-sm font-medium text-zinc-600 hover:bg-zinc-200 rounded-lg transition-colors">Cancel</button>
+                <button id="save-project" class="px-6 py-2 bg-zinc-900 text-white rounded-lg font-medium hover:bg-zinc-800 transition-colors">Save Project</button>
+            </div>
+        </div>
+    </div>
+
 
     <script>
         const SUPABASE_URL = 'https://muprfemezzdwbrqwlrcj.supabase.co';
@@ -212,6 +280,21 @@
                 document.getElementById('site-favicon').value = url;
                 alert('Favicon uploaded successfully!');
             }
+        });
+
+        // Project Specific Image Upload
+        document.getElementById('upload-project-img').addEventListener('click', async () => {
+            const url = await uploadFile('project-file', 'upload-project-img', 'projects');
+            if (url) {
+                document.getElementById('project-image-url').value = url;
+                document.getElementById('project-preview').src = url;
+                alert('Project image uploaded!');
+            }
+        });
+
+        // Live preview for manual URL paste
+        document.getElementById('project-image-url').addEventListener('input', (e) => {
+            document.getElementById('project-preview').src = e.target.value || 'https://via.placeholder.com/100';
         });
 
         // --- DATA LOADING ---
@@ -310,23 +393,72 @@
 
 
         // --- PROJECT CRUD ---
-        document.getElementById('add-project').addEventListener('click', async () => {
-            const title_en = prompt('Project Title (English):');
-            const title_ar = prompt('Project Title (Arabic):');
-            const category = prompt('Category:');
-            const image_url = prompt('Image URL:');
-            const link_url = prompt('Link URL:');
-            const description_en = prompt('Description (English):');
-            const description_ar = prompt('Description (Arabic):');
+        let currentProjectId = null;
+        const projectModal = document.getElementById('project-modal');
 
-            if (!title_en || !title_ar) return alert('Titles are required!');
+        const openModal = (id = null) => {
+            currentProjectId = id;
+            document.getElementById('modal-title').innerText = id ? 'Edit Project' : 'Add Project';
+            
+            // Reset form
+            document.getElementById('p-title-en').value = '';
+            document.getElementById('p-title-ar').value = '';
+            document.getElementById('p-desc-en').value = '';
+            document.getElementById('p-desc-ar').value = '';
+            document.getElementById('p-category').value = '';
+            document.getElementById('p-link').value = '';
+            document.getElementById('project-image-url').value = '';
+            document.getElementById('project-preview').src = 'https://via.placeholder.com/100';
+            document.getElementById('project-file').value = '';
 
-            const { error } = await _supabase.from('projects').insert([{
-                title_en, title_ar, category, image_url, link_url, description_en, description_ar
-            }]);
+            if (id) {
+                _supabase.from('projects').select('*').eq('id', id).single().then(({ data }) => {
+                    if (data) {
+                        document.getElementById('p-title-en').value = data.title_en;
+                        document.getElementById('p-title-ar').value = data.title_ar;
+                        document.getElementById('p-desc-en').value = data.description_en;
+                        document.getElementById('p-desc-ar').value = data.description_ar;
+                        document.getElementById('p-category').value = data.category;
+                        document.getElementById('p-link').value = data.link_url;
+                        document.getElementById('project-image-url').value = data.image_url;
+                        document.getElementById('project-preview').src = data.image_url;
+                    }
+                });
+            }
+            projectModal.classList.remove('hidden');
+        };
 
-            if (error) alert('Error adding project: ' + error.message); else {
-                alert('Project added!');
+        const closeModal = () => projectModal.classList.add('hidden');
+
+        document.getElementById('add-project').addEventListener('click', () => openModal());
+        document.getElementById('close-modal').addEventListener('click', closeModal);
+        document.getElementById('close-modal-btn').addEventListener('click', closeModal);
+
+        document.getElementById('save-project').addEventListener('click', async () => {
+            const projectData = {
+                title_en: document.getElementById('p-title-en').value,
+                title_ar: document.getElementById('p-title-ar').value,
+                description_en: document.getElementById('p-desc-en').value,
+                description_ar: document.getElementById('p-desc-ar').value,
+                category: document.getElementById('p-category').value,
+                link_url: document.getElementById('p-link').value,
+                image_url: document.getElementById('project-image-url').value,
+            };
+
+            if (!projectData.title_en || !projectData.title_ar) return alert('Titles are required!');
+
+            let error;
+            if (currentProjectId) {
+                const { error: upErr } = await _supabase.from('projects').update(projectData).eq('id', currentProjectId);
+                error = upErr;
+            } else {
+                const { error: insErr } = await _supabase.from('projects').insert([projectData]);
+                error = insErr;
+            }
+
+            if (error) alert('Error: ' + error.message); else {
+                alert('Project saved!');
+                closeModal();
                 loadProjects();
             }
         });
@@ -341,23 +473,7 @@
         }
 
         async function editProject(id) {
-            const { data: p } = await _supabase.from('projects').select('*').eq('id', id).single();
-            const title_en = prompt('Project Title (English):', p.title_en);
-            const title_ar = prompt('Project Title (Arabic):', p.title_ar);
-            const category = prompt('Category:', p.category);
-            const image_url = prompt('Image URL:', p.image_url);
-            const link_url = prompt('Link URL:', p.link_url);
-            const description_en = prompt('Description (English):', p.description_en);
-            const description_ar = prompt('Description (Arabic):', p.description_ar);
-
-            const { error } = await _supabase.from('projects').update({
-                title_en, title_ar, category, image_url, link_url, description_en, description_ar
-            }).eq('id', id);
-
-            if (error) alert('Error: ' + error.message); else {
-                alert('Updated!');
-                loadProjects();
-            }
+            openModal(id);
         }
     </script>
 </body>
