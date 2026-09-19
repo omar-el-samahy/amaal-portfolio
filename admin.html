@@ -127,30 +127,171 @@
     <script>
         const SUPABASE_URL = 'https://muprfemezzdwbrqwlrcj.supabase.co';
         const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im11cHJmZW1lenpkd2JycXdscmNqLCIncm9sZSI6ImFub24iLCJpYXQiOjE3ODk4MzAxODAsImV4cCI6MjEwNTQwNjE4MH0.qhL0SWGnEpP6Ej0VZwFk9YdNrYxeNFxxwfTAosr7ZRI';
-        const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+        const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
         const authContainer = document.getElementById('auth-container');
         const adminContent = document.getElementById('admin-content');
         const loginForm = document.getElementById('login-form');
 
+        // --- AUTH LOGIC ---
         loginForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
 
-            const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+            const { data, error } = await _supabase.auth.signInWithPassword({ email, password });
             if (error) {
                 alert('Login failed: ' + error.message);
             } else {
                 authContainer.classList.add('hidden');
                 adminContent.classList.remove('hidden');
+                loadAllData();
             }
         });
 
         document.getElementById('logout-btn').addEventListener('click', async () => {
-            await supabase.auth.signOut();
+            await _supabase.auth.signOut();
             location.reload();
         });
+
+        // --- DATA LOADING ---
+        async function loadAllData() {
+            await loadSettings();
+            await loadProfile();
+            await loadProjects();
+        }
+
+        async function loadSettings() {
+            const { data, error } = await _supabase.from('site_settings').select('*').eq('id', 1).single();
+            if (data) {
+                document.getElementById('site-logo').value = data.logo_url || '';
+                document.getElementById('site-favicon').value = data.favicon_url || '';
+                document.getElementById('hero-title-en').value = data.hero_title_en || '';
+                document.getElementById('hero-title-ar').value = data.hero_title_ar || '';
+                document.getElementById('hero-sub-en').value = data.hero_sub_en || '';
+                document.getElementById('hero-sub-ar').value = data.hero_sub_ar || '';
+                document.getElementById('hero-desc-en').value = data.hero_desc_en || '';
+                document.getElementById('hero-desc-ar').value = data.hero_desc_ar || '';
+            }
+        }
+
+        async function loadProfile() {
+            const { data, error } = await _supabase.from('profile').select('*').single();
+            if (data) {
+                document.getElementById('bio-en').value = data.bio_en || '';
+                document.getElementById('bio-ar').value = data.bio_ar || '';
+                document.getElementById('email-profile').value = data.email || '';
+                document.getElementById('whatsapp-profile').value = data.whatsapp || '';
+                document.getElementById('linkedin-profile').value = data.linkedin || '';
+                document.getElementById('behance-profile').value = data.behance || '';
+            }
+        }
+
+        async function loadProjects() {
+            const { data, error } = await _supabase.from('projects').select('*').order('created_at', { ascending: false });
+            const list = document.getElementById('projects-list');
+            list.innerHTML = '';
+
+            if (data) {
+                data.forEach(p => {
+                    const div = document.createElement('div');
+                    div.className = 'flex items-center justify-between p-4 bg-zinc-50 rounded-2xl border border-zinc-200';
+                    div.innerHTML = `
+                        <div>
+                            <p class="font-bold">${p.title_en}</p>
+                            <p class="text-xs text-zinc-500">${p.category || 'No Category'}</p>
+                        </div>
+                        <div class="flex gap-2">
+                            <button onclick="editProject('${p.id}')" class="px-3 py-1 text-xs bg-white border border-zinc-300 rounded-lg hover:bg-zinc-100">Edit</button>
+                            <button onclick="deleteProject('${p.id}')" class="px-3 py-1 text-xs bg-red-50 text-red-600 border border-red-200 rounded-lg hover:bg-red-100">Delete</button>
+                        </div>
+                    `;
+                    list.appendChild(div);
+                });
+            }
+        }
+
+        // --- SAVING LOGIC ---
+        document.getElementById('save-settings').addEventListener('click', async () => {
+            const updates = {
+                logo_url: document.getElementById('site-logo').value,
+                favicon_url: document.getElementById('site-favicon').value,
+                hero_title_en: document.getElementById('hero-title-en').value,
+                hero_title_ar: document.getElementById('hero-title-ar').value,
+                hero_sub_en: document.getElementById('hero-sub-en').value,
+                hero_sub_ar: document.getElementById('hero-sub-ar').value,
+                hero_desc_en: document.getElementById('hero-desc-en').value,
+                hero_desc_ar: document.getElementById('hero-desc-ar').value,
+                updated_at: new Date()
+            };
+            const { error } = await _supabase.from('site_settings').upsert({ id: 1, ...updates });
+            if (error) alert('Error saving settings: ' + error.message); else alert('Settings saved!');
+        });
+
+        document.getElementById('save-profile').addEventListener('click', async () => {
+            const updates = {
+                bio_en: document.getElementById('bio-en').value,
+                bio_ar: document.getElementById('bio-ar').value,
+                email: document.getElementById('email-profile').value,
+                whatsapp: document.getElementById('whatsapp-profile').value,
+                linkedin: document.getElementById('linkedin-profile').value,
+                behance: document.getElementById('behance-profile').value,
+                updated_at: new Date()
+            };
+            const { error } = await _supabase.from('profile').upsert({ id: 'default', ...updates });
+            if (error) alert('Error saving profile: ' + error.message); else alert('Profile saved!');
+        });
+
+        // --- PROJECT CRUD ---
+        document.getElementById('add-project').addEventListener('click', async () => {
+            const title_en = prompt('Project Title (English):');
+            const title_ar = prompt('Project Title (Arabic):');
+            const category = prompt('Category:');
+            const image_url = prompt('Image URL:');
+            const link_url = prompt('Link URL:');
+            const description_en = prompt('Description (English):');
+            const description_ar = prompt('Description (Arabic):');
+
+            if (!title_en || !title_ar) return alert('Titles are required!');
+
+            const { error } = await _supabase.from('projects').insert([{
+                title_en, title_ar, category, image_url, link_url, description_en, description_ar
+            }]);
+
+            if (error) alert('Error adding project: ' + error.message); else {
+                alert('Project added!');
+                loadProjects();
+            }
+        });
+
+        async function deleteProject(id) {
+            if (!confirm('Delete this project?')) return;
+            const { error } = await _supabase.from('projects').delete().eq('id', id);
+            if (error) alert('Error: ' + error.message); else {
+                alert('Deleted!');
+                loadProjects();
+            }
+        }
+
+        async function editProject(id) {
+            const { data: p } = await _supabase.from('projects').select('*').eq('id', id).single();
+            const title_en = prompt('Project Title (English):', p.title_en);
+            const title_ar = prompt('Project Title (Arabic):', p.title_ar);
+            const category = prompt('Category:', p.category);
+            const image_url = prompt('Image URL:', p.image_url);
+            const link_url = prompt('Link URL:', p.link_url);
+            const description_en = prompt('Description (English):', p.description_en);
+            const description_ar = prompt('Description (Arabic):', p.description_ar);
+
+            const { error } = await _supabase.from('projects').update({
+                title_en, title_ar, category, image_url, link_url, description_en, description_ar
+            }).eq('id', id);
+
+            if (error) alert('Error: ' + error.message); else {
+                alert('Updated!');
+                loadProjects();
+            }
+        }
     </script>
 </body>
 </html>
