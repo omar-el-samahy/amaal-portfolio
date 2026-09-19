@@ -37,13 +37,21 @@
                 <h2 class="text-xl font-bold mb-6">Site Settings</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div class="space-y-4">
-                        <div>
-                            <label class="block text-sm font-medium mb-1">Logo URL</label>
-                            <input type="text" id="site-logo" class="w-full p-3 rounded-xl border border-zinc-300 focus:ring-2 focus:ring-zinc-900 outline-none">
+                        <div class="p-4 bg-zinc-50 rounded-2xl border border-zinc-200">
+                            <label class="block text-sm font-medium mb-2">Logo Upload</label>
+                            <div class="flex gap-2">
+                                <input type="file" id="logo-file" class="text-xs w-full">
+                                <button id="upload-logo" class="px-3 py-1 bg-zinc-900 text-white text-xs rounded-lg">Upload</button>
+                            </div>
+                            <input type="text" id="site-logo" placeholder="Logo URL" class="w-full p-3 mt-2 rounded-xl border border-zinc-300 text-xs focus:ring-2 focus:ring-zinc-900 outline-none">
                         </div>
-                        <div>
-                            <label class="block text-sm font-medium mb-1">Favicon URL</label>
-                            <input type="text" id="site-favicon" class="w-full p-3 rounded-xl border border-zinc-300 focus:ring-2 focus:ring-zinc-900 outline-none">
+                        <div class="p-4 bg-zinc-50 rounded-2xl border border-zinc-200">
+                            <label class="block text-sm font-medium mb-2">Favicon Upload</label>
+                            <div class="flex gap-2">
+                                <input type="file" id="favicon-file" class="text-xs w-full">
+                                <button id="upload-favicon" class="px-3 py-1 bg-zinc-900 text-white text-xs rounded-lg">Upload</button>
+                            </div>
+                            <input type="text" id="site-favicon" placeholder="Favicon URL" class="w-full p-3 mt-2 rounded-xl border border-zinc-300 text-xs focus:ring-2 focus:ring-zinc-900 outline-none">
                         </div>
                         <div>
                             <label class="block text-sm font-medium mb-1">Hero Title (EN)</label>
@@ -152,6 +160,42 @@
         document.getElementById('logout-btn').addEventListener('click', async () => {
             await _supabase.auth.signOut();
             location.reload();
+        });
+
+        // --- STORAGE HELPERS ---
+        async function uploadFile(fileInputId, buttonId, folder = 'logos') {
+            const fileInput = document.getElementById(fileInputId);
+            const file = fileInput.files[0];
+            if (!file) return alert('Please select a file first!');
+
+            const fileName = `${Date.now()}_${file.name}`;
+            const filePath = `${folder}/${fileName}`;
+
+            const { data, error } = await _supabase.storage.from('assets').upload(filePath, file);
+
+            if (error) {
+                alert('Upload failed: ' + error.message);
+                return null;
+            }
+
+            const { data: { publicUrl } } = _supabase.storage.from('assets').getPublicUrl(filePath);
+            return publicUrl;
+        }
+
+        document.getElementById('upload-logo').addEventListener('click', async () => {
+            const url = await uploadFile('logo-file', 'upload-logo', 'logos');
+            if (url) {
+                document.getElementById('site-logo').value = url;
+                alert('Logo uploaded successfully!');
+            }
+        });
+
+        document.getElementById('upload-favicon').addEventListener('click', async () => {
+            const url = await uploadFile('favicon-file', 'upload-favicon', 'icons');
+            if (url) {
+                document.getElementById('site-favicon').value = url;
+                alert('Favicon uploaded successfully!');
+            }
         });
 
         // --- DATA LOADING ---
