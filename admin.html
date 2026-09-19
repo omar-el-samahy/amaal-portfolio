@@ -191,10 +191,17 @@
                     <label class="block text-sm font-medium mb-1">Category</label>
                     <input type="text" id="p-category" placeholder="e.g. Brand Identity" class="w-full p-3 rounded-xl border border-zinc-300 outline-none">
                 </div>
-                <div>
-                    <label class="block text-sm font-medium mb-1">Project Link (External)</label>
-                    <input type="text" id="p-link" placeholder="https://..." class="w-full p-3 rounded-xl border border-zinc-300 outline-none">
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium mb-1">Order (Low = First)</label>
+                        <input type="number" id="p-sort" placeholder="0" class="w-full p-3 rounded-xl border border-zinc-300 outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-1">Project Link</label>
+                        <input type="text" id="p-link" placeholder="https://..." class="w-full p-3 rounded-xl border border-zinc-300 outline-none">
+                    </div>
                 </div>
+            </div>
             </div>
             <div class="p-6 border-t border-zinc-100 bg-zinc-50 flex justify-end gap-3">
                 <button id="close-modal-btn" class="px-6 py-2 text-sm font-medium text-zinc-600 hover:bg-zinc-200 rounded-lg transition-colors">Cancel</button>
@@ -407,6 +414,7 @@
             document.getElementById('p-desc-ar').value = '';
             document.getElementById('p-category').value = '';
             document.getElementById('p-link').value = '';
+            document.getElementById('p-sort').value = '0';
             document.getElementById('project-image-url').value = '';
             document.getElementById('project-preview').src = 'https://via.placeholder.com/100';
             document.getElementById('project-file').value = '';
@@ -420,6 +428,7 @@
                         document.getElementById('p-desc-ar').value = data.description_ar;
                         document.getElementById('p-category').value = data.category;
                         document.getElementById('p-link').value = data.link_url;
+                        document.getElementById('p-sort').value = data.sort_order || '0';
                         document.getElementById('project-image-url').value = data.image_url;
                         document.getElementById('project-preview').src = data.image_url;
                     }
@@ -443,6 +452,7 @@
                 category: document.getElementById('p-category').value,
                 link_url: document.getElementById('p-link').value,
                 image_url: document.getElementById('project-image-url').value,
+                sort_order: parseInt(document.getElementById('p-sort').value) || 0,
             };
 
             if (!projectData.title_en || !projectData.title_ar) return alert('Titles are required!');

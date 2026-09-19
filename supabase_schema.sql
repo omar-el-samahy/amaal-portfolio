@@ -11,6 +11,7 @@ CREATE TABLE projects (
   description_ar TEXT,
   image_url TEXT,
   link_url TEXT,
+  sort_order INT DEFAULT 0,
   created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
