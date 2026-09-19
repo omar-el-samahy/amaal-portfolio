@@ -57,5 +57,13 @@ CREATE POLICY "Admin Manage Settings" ON site_settings FOR ALL USING (auth.role(
 CREATE POLICY "Public Read Profile" ON profile FOR SELECT USING (true);
 CREATE POLICY "Admin Manage Profile" ON profile FOR ALL USING (auth.role() = 'authenticated');
 
+-- 6. Storage Policies (for the 'assets' bucket)
+-- Allow authenticated admins to upload files
+CREATE POLICY "Allow Admin Uploads" ON storage.objects FOR INSERT TO authenticated WITH CHECK (bucket_id = 'assets');
+-- Allow authenticated admins to update/delete files
+CREATE POLICY "Allow Admin Updates" ON storage.objects FOR UPDATE TO authenticated USING (bucket_id = 'assets');
+-- Allow everyone to view files
+CREATE POLICY "Public Read Assets" ON storage.objects FOR SELECT TO public USING (bucket_id = 'assets');
+
 -- Initialize Site Settings
 INSERT INTO site_settings (id, hero_title_en, hero_title_ar) VALUES (1, 'Amaal Abdou', 'آمال عبده') ON CONFLICT (id) DO NOTHING;
