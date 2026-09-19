@@ -1,0 +1,30 @@
+[
+  {
+    "title": "Brand Identity Evolution",
+    "category": "Branding",
+    "description": "Strategic rebranding for global luxury markets, focusing on timeless elegance and scalability.",
+    "image_url": "https://picsum.photos/seed/brand1/800/450",
+    "link_url": "https://www.behance.net/amaalabdou"
+  },
+  {
+    "title": "Minimalist Logo Systems",
+    "category": "Logo Design",
+    "description": "A series of vector marks designed for maximum impact with minimal lines.",
+    "image_url": "https://picsum.photos/seed/logo1/400/400",
+    "link_url": "https://www.behance.net/amaalabdou"
+  },
+  {
+    "title": "Cinematic Motion Graphics",
+    "category": "Motion",
+    "description": "High-fidelity 2D/3D animations for social media storytelling.",
+    "image_url": "https://picsum.photos/seed/motion1/400/400",
+    "link_url": "https://www.behance.net/amaalabdou"
+  },
+  {
+    "title": "Social Media Strategy",
+    "category": "Social Media",
+    "description": "Visual content systems designed to drive engagement and brand loyalty.",
+    "image_url": "https://picsum.photos/seed/social1/800/450",
+    "link_url": "https://www.behance.net/amaalabdou"
+  }
+]
