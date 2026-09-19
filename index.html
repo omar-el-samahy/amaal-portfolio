@@ -336,7 +336,7 @@
             document.querySelector('nav a:nth-child(2)').innerText = translations[currentLang].navWork;
             document.querySelector('nav a:nth-child(3)').innerText = translations[currentLang].navAbout;
             document.querySelector('nav a:nth-child(4)').innerText = translations[currentLang].navContact;
-            document.querySelector('h1').innerHTML = `${translations[currentLang].heroTitle}<br><span class="text-zinc-400 dark:text-zinc-600">${translations[currentLang].heroSub}</span>`;
+            document.querySelector('h1').innerHTML = `${translations[currentLang].heroTitle}<br><span class="text-zinc-400 dark:text-zinc-600 hero-title-sub">${translations[currentLang].heroSub}</span>`;
             document.querySelector('p').innerText = translations[currentLang].heroDesc;
             // Update Hero CTA
             document.getElementById('hero-cta').innerText = translations[currentLang].btnWork;
