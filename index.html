@@ -110,6 +110,16 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
+        .contact-email-icon {
+            width: 1em;
+            height: 1em;
+            flex-shrink: 0;
+        }
+
+        .dark .contact-email-icon {
+            filter: invert(1);
+        }
+
         .bento-card {
             will-change: transform;
         }
@@ -337,14 +347,14 @@
         function updateContactLinks(profile) {
             const linksContainer = document.getElementById('contact-links');
             const links = [
-                { label: 'emailMe', icon: 'fa-envelope', color: '#EA4335', url: `mailto:${profile.email}` },
+                { label: 'emailMe', icon: null, url: `mailto:${profile.email}` },
                 { label: 'linkedin', icon: 'fa-brands fa-linkedin', color: '#0077B5', url: profile.linkedin },
                 { label: 'behance', icon: 'fa-brands fa-behance', color: '#0057FF', url: profile.behance },
                 { label: 'whatsapp', icon: 'fa-brands fa-whatsapp', color: '#25D366', url: whatsappUrl(profile.whatsapp) },
             ];
             linksContainer.innerHTML = links.map(l => `
                 <a href="${l.url}" target="_blank" class="p-6 rounded-2xl border hover:scale-105 transition-all flex items-center justify-center gap-3 group font-['Cairo_Play'] font-bold contact-btn">
-                    <i class="${l.icon}" style="color: ${l.color}"></i> 
+                    ${l.icon ? `<i class="${l.icon}" style="color: ${l.color}"></i>` : `<img src="https://img.icons8.com/fluency-systems-filled/48/new-post.png" alt="new-post" class="contact-email-icon">`} 
                     <span class="contact-text">${translations[currentLang][l.label]}</span>
                 </a>
             `).join('');
