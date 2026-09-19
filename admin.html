@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel | Amaal Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body class="bg-zinc-50 text-zinc-900 min-h-screen">
+    <div id="auth-container" class="flex items-center justify-center min-h-screen p-4">
+        <div class="max-w-md w-full bg-white p-8 rounded-3xl shadow-xl border border-zinc-200">
+            <h1 class="text-2xl font-bold mb-6 text-center">Admin Login</h1>
+            <form id="login-form" class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium mb-1">Email</label>
+                    <input type="email" id="email" class="w-full p-3 rounded-xl border border-zinc-300 focus:ring-2 focus:ring-zinc-900 outline-none" required>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium mb-1">Password</label>
+                    <input type="password" id="password" class="w-full p-3 rounded-xl border border-zinc-300 focus:ring-2 focus:ring-zinc-900 outline-none" required>
+                </div>
+                <button type="submit" class="w-full py-3 bg-zinc-900 text-white rounded-xl font-bold hover:bg-zinc-800 transition-colors">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="admin-content" class="hidden p-8 max-w-4xl mx-auto">
+        <div class="flex justify-between items-center mb-12">
+            <h1 class="text-3xl font-bold">Portfolio Manager</h1>
+            <button id="logout-btn" class="px-4 py-2 text-sm font-medium text-red-600 hover:bg-red-50 rounded-lg transition-colors">Logout</button>
+        </div>
+
+        <div class="space-y-12">
+            <section class="bg-white p-8 rounded-3xl border border-zinc-200 shadow-sm">
+                <h2 class="text-xl font-bold mb-6">Profile & About</h2>
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium mb-1">About Text</label>
+                        <textarea id="about-text-input" class="w-full p-3 rounded-xl border border-zinc-300 h-32 focus:ring-2 focus:ring-zinc-900 outline-none"></textarea>
+                    </div>
+                    <button id="save-about" class="px-6 py-2 bg-zinc-900 text-white rounded-lg font-medium hover:bg-zinc-800 transition-colors">Save Changes</button>
+                </div>
+            </section>
+
+            <section class="bg-white p-8 rounded-3xl border border-zinc-200 shadow-sm">
+                <h2 class="text-xl font-bold mb-6">Projects</h2>
+                <div id="projects-list" class="space-y-4">
+                    <!-- Project items will be loaded here -->
+                </div>
+                <button id="add-project" class="mt-6 px-6 py-2 bg-zinc-900 text-white rounded-lg font-medium hover:bg-zinc-800 transition-colors">+ Add Project</button>
+            </section>
+        </div>
+    </div>
+
+    <script>
+        // Supabase config placeholders
+        const SUPABASE_URL = 'YOUR_SUPABASE_URL';
+        const SUPABASE_KEY = 'YOUR_SUPABASE_ANON_KEY';
+        const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+        const authContainer = document.getElementById('auth-container');
+        const adminContent = document.getElementById('admin-content');
+        const loginForm = document.getElementById('login-form');
+
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+            if (error) {
+                alert('Login failed: ' + error.message);
+            } else {
+                authContainer.classList.add('hidden');
+                adminContent.classList.remove('hidden');
+            }
+        });
+
+        document.getElementById('logout-btn').addEventListener('click', async () => {
+            await supabase.auth.signOut();
+            location.reload();
+        });
+    </script>
+</body>
+</html>
