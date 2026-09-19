@@ -32,17 +32,87 @@
         </div>
 
         <div class="space-y-12">
+            <!-- Site Settings Section -->
             <section class="bg-white p-8 rounded-3xl border border-zinc-200 shadow-sm">
-                <h2 class="text-xl font-bold mb-6">Profile & About</h2>
-                <div class="space-y-4">
-                    <div>
-                        <label class="block text-sm font-medium mb-1">About Text</label>
-                        <textarea id="about-text-input" class="w-full p-3 rounded-xl border border-zinc-300 h-32 focus:ring-2 focus:ring-zinc-900 outline-none"></textarea>
+                <h2 class="text-xl font-bold mb-6">Site Settings</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium mb-1">Logo URL</label>
+                            <input type="text" id="site-logo" class="w-full p-3 rounded-xl border border-zinc-300 focus:ring-2 focus:ring-zinc-900 outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-1">Favicon URL</label>
+                            <input type="text" id="site-favicon" class="w-full p-3 rounded-xl border border-zinc-300 focus:ring-2 focus:ring-zinc-900 outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-1">Hero Title (EN)</label>
+                            <input type="text" id="hero-title-en" class="w-full p-3 rounded-xl border border-zinc-300 focus:ring-2 focus:ring-zinc-900 outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-1">Hero Title (AR)</label>
+                            <input type="text" id="hero-title-ar" class="w-full p-3 rounded-xl border border-zinc-300 focus:ring-2 focus:ring-zinc-900 outline-none">
+                        </div>
                     </div>
-                    <button id="save-about" class="px-6 py-2 bg-zinc-900 text-white rounded-lg font-medium hover:bg-zinc-800 transition-colors">Save Changes</button>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium mb-1">Hero Subtitle (EN)</label>
+                            <input type="text" id="hero-sub-en" class="w-full p-3 rounded-xl border border-zinc-300 focus:ring-2 focus:ring-zinc-900 outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-1">Hero Subtitle (AR)</label>
+                            <input type="text" id="hero-sub-ar" class="w-full p-3 rounded-xl border border-zinc-300 focus:ring-2 focus:ring-zinc-900 outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-1">Hero Desc (EN)</label>
+                            <textarea id="hero-desc-en" class="w-full p-3 rounded-xl border border-zinc-300 h-20 focus:ring-2 focus:ring-zinc-900 outline-none"></textarea>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-1">Hero Desc (AR)</label>
+                            <textarea id="hero-desc-ar" class="w-full p-3 rounded-xl border border-zinc-300 h-20 focus:ring-2 focus:ring-zinc-900 outline-none"></textarea>
+                        </div>
+                    </div>
                 </div>
+                <button id="save-settings" class="mt-6 px-6 py-2 bg-zinc-900 text-white rounded-lg font-medium hover:bg-zinc-800 transition-colors">Save Site Settings</button>
             </section>
 
+            <!-- Profile & About Section -->
+            <section class="bg-white p-8 rounded-3xl border border-zinc-200 shadow-sm">
+                <h2 class="text-xl font-bold mb-6">Profile & About</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium mb-1">Bio (English)</label>
+                            <textarea id="bio-en" class="w-full p-3 rounded-xl border border-zinc-300 h-32 focus:ring-2 focus:ring-zinc-900 outline-none"></textarea>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-1">Email</label>
+                            <input type="email" id="email-profile" class="w-full p-3 rounded-xl border border-zinc-300 focus:ring-2 focus:ring-zinc-900 outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-1">WhatsApp</label>
+                            <input type="text" id="whatsapp-profile" class="w-full p-3 rounded-xl border border-zinc-300 focus:ring-2 focus:ring-zinc-900 outline-none">
+                        </div>
+                    </div>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium mb-1">Bio (Arabic)</label>
+                            <textarea id="bio-ar" class="w-full p-3 rounded-xl border border-zinc-300 h-32 focus:ring-2 focus:ring-zinc-900 outline-none"></textarea>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-1">LinkedIn</label>
+                            <input type="text" id="linkedin-profile" class="w-full p-3 rounded-xl border border-zinc-300 focus:ring-2 focus:ring-zinc-900 outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-1">Behance</label>
+                            <input type="text" id="behance-profile" class="w-full p-3 rounded-xl border border-zinc-300 focus:ring-2 focus:ring-zinc-900 outline-none">
+                        </div>
+                    </div>
+                </div>
+                <button id="save-profile" class="mt-6 px-6 py-2 bg-zinc-900 text-white rounded-lg font-medium hover:bg-zinc-800 transition-colors">Save Profile</button>
+            </section>
+
+            <!-- Projects Section -->
             <section class="bg-white p-8 rounded-3xl border border-zinc-200 shadow-sm">
                 <h2 class="text-xl font-bold mb-6">Projects</h2>
                 <div id="projects-list" class="space-y-4">
@@ -53,10 +123,10 @@
         </div>
     </div>
 
+
     <script>
-        // Supabase config placeholders
-        const SUPABASE_URL = 'YOUR_SUPABASE_URL';
-        const SUPABASE_KEY = 'YOUR_SUPABASE_ANON_KEY';
+        const SUPABASE_URL = 'https://muprfemezzdwbrqwlrcj.supabase.co';
+        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im11cHJmZW1lenpkd2JycXdscmNqLCIncm9sZSI6ImFub24iLCJpYXQiOjE3ODk4MzAxODAsImV4cCI6MjEwNTQwNjE4MH0.qhL0SWGnEpP6Ej0VZwFk9YdNrYxeNFxxwfTAosr7ZRI';
         const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
         const authContainer = document.getElementById('auth-container');
