@@ -23,19 +23,33 @@
     <style>
         :root {
             --spring-easing: cubic-bezier(0.32, 0.72, 0, 1);
+            /* Space / Nebula Palette */
+            --bg-deep: #050510;
+            --nebula-purple: #2a1b5e;
+            --nebula-blue: #1a2a6c;
+            --stardust-gold: #fdfcf0;
         }
         body {
             font-family: 'Inter', sans-serif;
             transition: background-color 0.5s var(--spring-easing), color 0.5s var(--spring-easing);
             scroll-behavior: smooth;
             cursor: url('assets/cursor/cursor.png'), auto;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(42, 27, 94, 0.4) 0%, transparent 40%),
+                radial-gradient(circle at 80% 70%, rgba(26, 42, 108, 0.4) 0%, transparent 40%),
+                var(--bg-deep);
+            background-attachment: fixed;
+        }
+        .dark body {
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(42, 27, 94, 0.6) 0%, transparent 40%),
+                radial-gradient(circle at 80% 70%, rgba(26, 42, 108, 0.6) 0%, transparent 40%),
+                #020205;
+            background-attachment: fixed;
+            color: #f4f4f5 !important;
         }
         a, button, .bento-card {
             cursor: url('assets/cursor/hover.png'), pointer !important;
-        }
-        .dark body {
-            background-color: #09090b !important;
-            color: #f4f4f5 !important;
         }
         h1, h2, h3 {
             font-family: 'Plus Jakarta Sans', sans-serif;
@@ -89,7 +103,8 @@
             transition: background 0.3s var(--spring-easing);
         }
         .dark .inner-core {
-            background: #0f0f0f;
+            background: rgba(15, 15, 15, 0.8);
+            backdrop-filter: blur(10px);
             box-shadow: inset 0 1px 1px rgba(255,255,255,0.05);
         }
         [dir="rtl"] {
