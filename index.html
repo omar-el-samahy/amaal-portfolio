@@ -199,14 +199,19 @@
         const themeToggle = document.getElementById('theme-toggle');
         const themeIcon = document.getElementById('theme-icon');
         
+        // Set initial theme based on system preference
         if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
             document.documentElement.classList.add('dark');
             themeIcon.innerText = '☀️';
         }
 
         themeToggle.addEventListener('click', () => {
-            document.documentElement.classList.toggle('dark');
-            themeIcon.innerText = document.documentElement.classList.contains('dark') ? '☀️' : '🌙';
+            const isDark = document.documentElement.classList.toggle('dark');
+            themeIcon.innerText = isDark ? '☀️' : '🌙';
+            
+            // Force a background repaint for all elements by updating the body class
+            // since Tailwind's dark: modifier depends on the 'dark' class being on the html element
+            document.body.classList.toggle('dark');
         });
 
         // Language Toggle
