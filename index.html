@@ -459,7 +459,7 @@
             // Update Footer
             const footerText = document.getElementById('footer-text');
             if (footerText) {
-                footerText.innerHTML = translations[currentLang].footer || footerText.innerHTML;
+                footerText.innerHTML = translations[currentLang].footer;
             }
             document.getElementById('year').innerText = new Date().getFullYear();
         });
