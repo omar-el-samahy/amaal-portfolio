@@ -349,8 +349,9 @@
             grid.innerHTML = projects.map((p, i) => {
                 const span = i === 0 ? 'md:col-span-8' : 'md:col-span-4';
                 const aspect = i === 0 ? 'aspect-video' : 'aspect-square';
+                const link = p.link_url ? `target="_blank" href="${p.link_url}"` : '';
                 return `
-                    <div class="${span} double-bezel bento-card group cursor-pointer">
+                    <a ${link} class="${span} double-bezel bento-card group cursor-pointer block no-underline">
                         <div class="inner-core p-6">
                             <div class="${aspect} bg-zinc-200 dark:bg-zinc-800 rounded-2xl overflow-hidden mb-6">
                                 <img src="${p.image_url}" alt="${p.title_en}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
@@ -358,7 +359,7 @@
                             <h3 class="text-xl font-bold mb-2">${currentLang === 'en' ? p.title_en : p.title_ar}</h3>
                             <p class="text-zinc-500 dark:text-zinc-400">${currentLang === 'en' ? p.description_en : p.description_ar}</p>
                         </div>
-                    </div>
+                    </a>
                 `;
             }).join('');
         }
