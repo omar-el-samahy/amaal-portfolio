@@ -451,10 +451,14 @@
             // Update Contact Buttons
             const contactLinks = document.querySelectorAll('#contact a');
             const contactTexts = document.querySelectorAll('.contact-text');
-            contactTexts[0].innerText = translations[currentLang].emailMe;
-            contactTexts[1].innerText = translations[currentLang].linkedin;
-            contactTexts[2].innerText = translations[currentLang].behance;
-            contactTexts[3].innerText = translations[currentLang].whatsapp;
+            contactTexts.forEach((span, index) => {
+                const key = ['emailMe', 'linkedin', 'behance', 'whatsapp'][index];
+                span.innerText = translations[currentLang][key];
+            });
+
+            // Update Footer
+            document.getElementById('footer-text').innerHTML = translations[currentLang].footer;
+            document.getElementById('year').innerText = new Date().getFullYear();
         });
 
 
