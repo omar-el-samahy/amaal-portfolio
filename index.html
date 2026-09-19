@@ -33,13 +33,20 @@
             font-family: 'Inter', sans-serif;
             transition: background-color 0.5s var(--spring-easing), color 0.5s var(--spring-easing);
             scroll-behavior: smooth;
-            cursor: url('assets/cursor/cursor.png'), auto;
+            cursor: url('assets/cursor/assets/Normal.svg'), auto;
             background: 
                 radial-gradient(circle at 20% 30%, rgba(42, 27, 94, 0.4) 0%, transparent 40%),
                 radial-gradient(circle at 80% 70%, rgba(26, 42, 108, 0.4) 0%, transparent 40%),
                 var(--bg-deep);
             background-attachment: fixed;
         }
+        a, button, .bento-card {
+            cursor: url('assets/cursor/assets/Link.svg'), pointer !important;
+        }
+        input, textarea {
+            cursor: url('assets/cursor/assets/Text.svg'), text !important;
+        }
+
         .dark body {
             background: 
                 radial-gradient(circle at 20% 30%, rgba(42, 27, 94, 0.6) 0%, transparent 40%),
