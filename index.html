@@ -24,6 +24,13 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Plus+Jakarta+Sans:wght@700;800&family=Outfit:wght@500;600&family=Cairo+Play:wght@700;800&family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+        <link rel="preload" as="image" href="https://img.icons8.com/color/96/adobe-photoshop.png">
+        <link rel="preload" as="image" href="https://img.icons8.com/color/96/adobe-illustrator.png">
+        <link rel="preload" as="image" href="https://img.icons8.com/color/96/adobe-indesign.png">
+        <link rel="preload" as="image" href="https://img.icons8.com/color/96/adobe-premiere-pro.png">
+        <link rel="preload" as="image" href="https://img.icons8.com/color/96/adobe-after-effects.png">
+        <link rel="preload" as="image" href="https://img.icons8.com/color/96/figma.png">
+        <link rel="preload" as="image" href="https://img.icons8.com/color/96/canva.png">
     </head>
 
     <style>
@@ -160,20 +167,57 @@
             box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.05);
         }
 
+        .skills-marquee {
+            overflow: hidden;
+            border: 1px solid rgba(90, 70, 200, 0.28);
+            background: linear-gradient(90deg,
+                rgba(42, 27, 94, 0) 0%,
+                rgba(42, 27, 94, 0.45) 15%,
+                rgba(26, 42, 108, 0.45) 85%,
+                rgba(26, 42, 108, 0) 100%);
+            box-shadow: 0 0 40px -12px rgba(42, 27, 94, 0.55);
+        }
+
+        .dark .skills-marquee {
+            border: 1px solid rgba(125, 100, 255, 0.25);
+            background: linear-gradient(90deg,
+                rgba(42, 27, 94, 0) 0%,
+                rgba(42, 27, 94, 0.75) 15%,
+                rgba(26, 42, 108, 0.75) 85%,
+                rgba(26, 42, 108, 0) 100%);
+            box-shadow: 0 0 50px -12px rgba(42, 27, 94, 0.8);
+        }
+
+        .marquee-track {
+            display: flex;
+            align-items: center;
+            width: max-content;
+            will-change: transform;
+            backface-visibility: hidden;
+            transform: translate3d(0, 0, 0);
+            animation: marquee-scroll 30s linear infinite;
+        }
+
+        .marquee-track:hover {
+            animation-play-state: paused;
+        }
+
+        .marquee-track img {
+            flex-shrink: 0;
+            width: 2.5rem;
+            height: 2.5rem;
+            margin: 0 2.5rem;
+            object-fit: contain;
+        }
+
+        @keyframes marquee-scroll {
+            from { transform: translate3d(0, 0, 0); }
+            to { transform: translate3d(-50%, 0, 0); }
+        }
+
         [dir="rtl"] {
             text-align: right;
             font-family: 'Cairo', sans-serif;
-        }
-
-        .reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s var(--spring-easing);
-        }
-
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
         }
 
         .dark #lang-icon {
@@ -185,8 +229,6 @@
             font-weight: 900;
         }
     </style>
-
-</head>
 
 <body class="bg-zinc-50 text-zinc-900 dark:bg-zinc-950 dark:text-zinc-100">
 
@@ -217,6 +259,32 @@
         <a href="#work" id="hero-cta" class="px-8 py-4 rounded-full font-bold transition-transform active:scale-95 hover:opacity-90 hero-cta">
             View Selected Work
         </a>
+    </section>
+
+    <section id="skills" class="py-32 px-4 max-w-7xl mx-auto">
+        <div class="skills-marquee py-6 mb-16 rounded-full">
+            <div class="marquee-track"></div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-left" dir="ltr">
+            <div class="double-bezel bento-card group">
+                <div class="inner-core p-6 h-full flex flex-col">
+                    <h3 class="text-lg font-bold mb-5 flex items-center justify-center gap-2">
+                        <img src="https://img.icons8.com/fluency/96/branding.png" alt="Branding" title="Branding" class="h-6 w-6 object-contain">
+                        <span id="skills-branding-title">Branding &amp; Visual</span>
+                    </h3>
+                    <div id="skills-branding-items" class="flex-1 flex flex-wrap gap-2 items-center justify-center content-center"></div>
+                </div>
+            </div>
+            <div class="double-bezel bento-card group">
+                <div class="inner-core p-6 h-full flex flex-col">
+                    <h3 class="text-lg font-bold mb-5 flex items-center justify-center gap-2">
+                        <img src="https://img.icons8.com/fluency/96/marketing.png" alt="Marketing" title="Marketing" class="h-6 w-6 object-contain">
+                        <span id="skills-marketing-title">Marketing &amp; Digital</span>
+                    </h3>
+                    <div id="skills-marketing-items" class="flex-1 flex flex-wrap gap-2 items-center justify-center content-center"></div>
+                </div>
+            </div>
+        </div>
     </section>
 
     <section id="work" class="py-32 px-4 max-w-7xl mx-auto">
@@ -281,6 +349,9 @@
                 navHome: 'Home', navWork: 'Work', navAbout: 'About', navContact: 'Contact',
                 workTag: 'Selected Commissions', workTitle: 'Portfolio',
                 aboutTag: 'The Designer', aboutTitle: 'Driven by Precision, Defined by Craft',
+                aboutBranding: 'Branding & Visual', aboutMarketing: 'Marketing & Digital',
+                brandingItems: ['Brand Identity', 'Logo Design', 'Typography', 'Color Theory', 'Design Systems', 'Art Direction', 'Visual Storytelling'],
+                marketingItems: ['Social Media Graphic Design', 'Website Banner Design', 'Campaign Assets', 'Motion Graphics', 'Print & Digital Layout'],
                 contactTitle: 'Let’s Build Something Unforgettable',
                 btnWork: 'View Selected Work',
                 emailMe: 'Email Me', linkedin: 'LinkedIn', behance: 'Behance', whatsapp: 'WhatsApp',
@@ -290,6 +361,9 @@
                 navHome: 'الرئيسية', navWork: 'أعمالي', navAbout: 'عني', navContact: 'تواصل',
                 workTag: 'أعمال مختارة', workTitle: 'معرض الأعمال',
                 aboutTag: 'المصممة', aboutTitle: 'دقة في التنفيذ، إبداع في التصميم',
+                aboutBranding: 'الهوية والتصميم البصري', aboutMarketing: 'التسويق والرقمنة',
+                brandingItems: ['الهوية البصرية', 'تصميم الشعارات', 'الخطوط والطباعة', 'نظرية الألوان', 'أنظمة التصميم', 'الإخراج الفني', 'السرد البصري'],
+                marketingItems: ['تصميم جرافيك للسوشيال ميديا', 'تصميم بانرات المواقع', 'أصول الحملات الإعلانية', 'الموشن جرافيك', 'التصميم الطباعي والرقمي'],
                 contactTitle: 'جاهز للتميز؟ تواصل معي',
                 btnWork: 'مشاهدة الأعمال',
                 emailMe: 'أرسل لي بريداً', linkedin: 'لينكد إن', behance: 'بيهانس', whatsapp: 'واتساب',
@@ -390,6 +464,14 @@
             document.getElementById('work-title').innerText = translations[currentLang].workTitle;
             document.querySelector('#about span').innerText = translations[currentLang].aboutTag;
             document.querySelector('#about h2').innerText = translations[currentLang].aboutTitle;
+            const brandingTitle = document.getElementById('skills-branding-title');
+            if (brandingTitle) brandingTitle.innerText = translations[currentLang].aboutBranding;
+            const brandingItems = document.getElementById('skills-branding-items');
+            if (brandingItems) brandingItems.innerHTML = translations[currentLang].brandingItems.map(i => `<span class="px-3 py-1.5 rounded-full bg-zinc-100 dark:bg-zinc-800 text-sm text-zinc-700 dark:text-zinc-300">${i}</span>`).join('');
+            const marketingTitle = document.getElementById('skills-marketing-title');
+            if (marketingTitle) marketingTitle.innerText = translations[currentLang].aboutMarketing;
+            const marketingItems = document.getElementById('skills-marketing-items');
+            if (marketingItems) marketingItems.innerHTML = translations[currentLang].marketingItems.map(i => `<span class="px-3 py-1.5 rounded-full bg-zinc-100 dark:bg-zinc-800 text-sm text-zinc-700 dark:text-zinc-300">${i}</span>`).join('');
             document.getElementById('hero-cta').innerText = translations[currentLang].btnWork;
             document.getElementById('contact-title').innerText = translations[currentLang].contactTitle;
             const footerText = document.getElementById('footer-text');
@@ -406,15 +488,21 @@
             await initSite();
         });
 
-        const observerOptions = {threshold: 0.1};
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                }
-            });
-        }, observerOptions);
-        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        const marqueeTools = [
+            ['adobe-photoshop', 'Photoshop'],
+            ['adobe-illustrator', 'Illustrator'],
+            ['adobe-indesign', 'InDesign'],
+            ['adobe-premiere-pro', 'Premiere'],
+            ['adobe-after-effects', 'After Effects'],
+            ['figma', 'Figma'],
+            ['canva', 'Canva']
+        ];
+        const marqueeTrack = document.querySelector('.marquee-track');
+        if (marqueeTrack) {
+            marqueeTrack.innerHTML = [...marqueeTools, ...marqueeTools]
+                .map(([name, label]) => `<img src="https://img.icons8.com/color/96/${name}.png" alt="${label}" title="${label}">`)
+                .join('');
+        }
         document.getElementById('year').innerText = new Date().getFullYear();
         initSite();
     </script>
