@@ -301,7 +301,8 @@
                     updateHeroText(settings);
                 }
 
-                const { data: profile } = await _supabase.from('profile').select('*').single();
+                const { data: profiles } = await _supabase.from('profile').select('*').order('updated_at', { ascending: false }).limit(1);
+                const profile = profiles?.[0];
                 if (profile) {
                     updateAboutText(profile);
                     updateContactLinks(profile);
@@ -322,6 +323,13 @@
             document.getElementById('hero-description').innerText = desc;
         }
 
+        function whatsappUrl(value) {
+            if (!value) return '#';
+            let cleaned = value.replace(/^https?:\/\//i, '').replace(/^www\./i, '');
+            if (cleaned.startsWith('wa.me/')) return 'https://' + cleaned;
+            return 'https://wa.me/' + cleaned;
+        }
+
         function updateAboutText(profile) {
             document.getElementById('about-text').innerText = currentLang === 'en' ? profile.bio_en : profile.bio_ar;
         }
@@ -332,7 +340,7 @@
                 { label: 'emailMe', icon: 'fa-envelope', color: '#EA4335', url: `mailto:${profile.email}` },
                 { label: 'linkedin', icon: 'fa-brands fa-linkedin', color: '#0077B5', url: profile.linkedin },
                 { label: 'behance', icon: 'fa-brands fa-behance', color: '#0057FF', url: profile.behance },
-                { label: 'whatsapp', icon: 'fa-brands fa-whatsapp', color: '#25D366', url: `https://wa.me/${profile.whatsapp}` },
+                { label: 'whatsapp', icon: 'fa-brands fa-whatsapp', color: '#25D366', url: whatsappUrl(profile.whatsapp) },
             ];
             linksContainer.innerHTML = links.map(l => `
                 <a href="${l.url}" target="_blank" class="p-6 rounded-2xl border hover:scale-105 transition-all flex items-center justify-center gap-3 group font-['Cairo_Play'] font-bold contact-btn">

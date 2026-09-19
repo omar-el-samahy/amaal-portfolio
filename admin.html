@@ -319,7 +319,7 @@
         }
 
         async function loadProfile() {
-            const { data, error } = await _supabase.from('profile').select('*').single();
+            const { data, error } = await _supabase.from('profile').select('*').eq('id', '3e3d7cfe-59ee-4395-9502-c3543065a487').single();
             if (data) {
                 document.getElementById('bio-en').value = data.bio_en || '';
                 document.getElementById('bio-ar').value = data.bio_ar || '';
