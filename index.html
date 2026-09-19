@@ -227,21 +227,23 @@
         const translations = {
             en: {
                 navHome: 'Home', navWork: 'Work', navAbout: 'About', navContact: 'Contact',
-                heroTitle: 'Amaal Abdou', heroSub: 'Sr. Graphic Designer',
+                heroTitle: 'Amaal Abdou', heroSub: 'Lead Visual Experience Creator',
                 heroDesc: 'Crafting high-end brand identities and cinematic motion graphics that transform vision into visual authority.',
                 workTag: 'Selected Commissions', workTitle: 'Portfolio',
                 aboutTag: 'The Designer', aboutTitle: 'Driven by Precision, Defined by Craft',
                 contactTitle: 'Let\'s Create',
-                btnWork: 'View Selected Work'
+                btnWork: 'View Selected Work',
+                emailMe: 'Email Me', linkedin: 'LinkedIn', behance: 'Behance', whatsapp: 'WhatsApp'
             },
             ar: {
                 navHome: 'الرئيسية', navWork: 'أعمالي', navAbout: 'عني', navContact: 'تواصل',
-                heroTitle: 'آمال عبده', heroSub: 'مصممة جرافيك أولى',
+                heroTitle: 'آمال عبده', heroSub: 'صانعة تجارب و هوية بصرية',
                 heroDesc: 'صناعة هويات بصرية راقية ورسومات متحركة سينمائية تحول الرؤية إلى سلطة بصرية.',
                 workTag: 'أعمال مختارة', workTitle: 'معرض الأعمال',
                 aboutTag: 'المصممة', aboutTitle: 'دقة في التنفيذ، إبداع في التصميم',
                 contactTitle: 'لنبدأ العمل',
-                btnWork: 'مشاهدة الأعمال'
+                btnWork: 'مشاهدة الأعمال',
+                emailMe: 'أرسل لي بريداً', linkedin: 'لينكد إن', behance: 'بيهانس', whatsapp: 'واتساب'
             }
         };
 
@@ -259,6 +261,20 @@
             document.querySelector('h1').innerHTML = `${translations[currentLang].heroTitle}<br><span class="text-zinc-400 dark:text-zinc-600">${translations[currentLang].heroSub}</span>`;
             document.querySelector('p').innerText = translations[currentLang].heroDesc;
             document.querySelector('a[href="#work"]').innerText = translations[currentLang].btnWork;
+            
+            // Update Section Titles
+            document.querySelector('#work span').innerText = translations[currentLang].workTag;
+            document.querySelector('#work h2').innerText = translations[currentLang].workTitle;
+            document.querySelector('#about span').innerText = translations[currentLang].aboutTag;
+            document.querySelector('#about h2').innerText = translations[currentLang].aboutTitle;
+            document.querySelector('#contact h2').innerText = translations[currentLang].contactTitle;
+            
+            // Update Contact Buttons
+            const contactLinks = document.querySelectorAll('#contact a');
+            contactLinks[0].innerText = translations[currentLang].emailMe;
+            contactLinks[1].innerText = translations[currentLang].linkedin;
+            contactLinks[2].innerText = translations[currentLang].behance;
+            contactLinks[3].innerText = translations[currentLang].whatsapp;
         });
 
         // Reveal animations
