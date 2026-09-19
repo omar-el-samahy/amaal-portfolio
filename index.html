@@ -139,7 +139,7 @@
         <p class="max-w-xl text-lg md:text-xl text-zinc-600 dark:text-zinc-400 leading-relaxed mb-10">
             Designing distinct brand identities and cinematic motion graphics that give your business a commanding visual presence.
         </p>
-        <a href="#work" class="px-8 py-4 bg-zinc-900 text-white dark:bg-white dark:text-zinc-900 rounded-full font-bold transition-transform active:scale-95 hover:opacity-90">
+        <a href="#work" id="hero-cta" class="px-8 py-4 bg-zinc-900 text-white dark:bg-white dark:text-zinc-900 rounded-full font-bold transition-transform active:scale-95 hover:opacity-90">
             View Selected Work
         </a>
     </section>
@@ -297,7 +297,8 @@
             document.querySelector('nav a:nth-child(4)').innerText = translations[currentLang].navContact;
             document.querySelector('h1').innerHTML = `${translations[currentLang].heroTitle}<br><span class="text-zinc-400 dark:text-zinc-600">${translations[currentLang].heroSub}</span>`;
             document.querySelector('p').innerText = translations[currentLang].heroDesc;
-            document.querySelector('a[href="#work"]').innerText = translations[currentLang].btnWork;
+            // Update Hero CTA
+            document.getElementById('hero-cta').innerText = translations[currentLang].btnWork;
             
             // Update Section Titles
             document.querySelector('#work span').innerText = translations[currentLang].workTag;
